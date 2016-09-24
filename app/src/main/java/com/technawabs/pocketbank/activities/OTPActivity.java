@@ -2,6 +2,7 @@ package com.technawabs.pocketbank.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 
 import com.citrus.sdk.Callback;
@@ -17,6 +18,9 @@ import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.PaymentResponse;
 import com.technawabs.pocketbank.R;
 import com.technawabs.pocketbank.ui.dialog.ErrorDialog;
+import com.technawabs.pocketbank.ui.fragments.ContactBookFragment;
+import com.technawabs.pocketbank.ui.fragments.GoogleContactFragment;
+import com.technawabs.pocketbank.ui.fragments.TwiiterContactFragment;
 
 import java.util.ArrayList;
 
@@ -24,11 +28,19 @@ public class OTPActivity extends BaseActivity {
 
     private final String TAG = this.getClass().getSimpleName();
     private ErrorDialog errorDialog;
+    private CharSequence Titles[] = {"PHONE", "TWITTER", "GOOGLE"};
+    private FragmentTabHost fragmentTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+
+        fragmentTabHost=(FragmentTabHost)findViewById(R.id.tabhost);
+        fragmentTabHost.setup(OTPActivity.this,getSupportFragmentManager(),R.id.realtabcontent);
+        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(Titles[0].toString()).setIndicator(Titles[0]),ContactBookFragment.class,null);
+        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(Titles[1].toString()).setIndicator(Titles[1]),TwiiterContactFragment.class,null);
+        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(Titles[2].toString()).setIndicator(Titles[2]),GoogleContactFragment.class,null);
 
         getCitrusClient().isUserSignedIn(new Callback<Boolean>() {
             @Override
@@ -74,32 +86,32 @@ public class OTPActivity extends BaseActivity {
             }
         });
 
-        DebitCardOption debitCardOption
-                = new DebitCardOption("Card Holder Name", "4111111111111111", "123", Month.getMonth("12"), Year.getYear("18"));
-
-        Amount amount = new Amount("500");
-
-        // Init Load Money PaymentType
-        final String LOAD_MONEY_RETURN_URL="https://sandbox.citruspay.com/rlvmxr9q74";
-
-        try {
-            PaymentType.LoadMoney loadMoney = new PaymentType.LoadMoney(amount, LOAD_MONEY_RETURN_URL, debitCardOption);
-            // Call Load Money
-            getCitrusClient().simpliPay(loadMoney, new Callback<TransactionResponse>() {
-
-                @Override
-                public void success(TransactionResponse transactionResponse) {
-                    Log.d(TAG,transactionResponse.getMessage());
-                }
-
-                @Override
-                public void error(CitrusError error) {
-                    Log.d(TAG,error.toString());
-                }
-            });
-        }catch (Exception e){
-            Log.d(TAG,e.getMessage());
-        }
+//        DebitCardOption debitCardOption
+//                = new DebitCardOption("Card Holder Name", "4111111111111111", "123", Month.getMonth("12"), Year.getYear("18"));
+//
+//        Amount amount = new Amount("500");
+//
+//        // Init Load Money PaymentType
+//        final String LOAD_MONEY_RETURN_URL="https://sandbox.citruspay.com/rlvmxr9q74";
+//
+//        try {
+//            PaymentType.LoadMoney loadMoney = new PaymentType.LoadMoney(amount, LOAD_MONEY_RETURN_URL, debitCardOption);
+//            // Call Load Money
+//            getCitrusClient().simpliPay(loadMoney, new Callback<TransactionResponse>() {
+//
+//                @Override
+//                public void success(TransactionResponse transactionResponse) {
+//                    Log.d(TAG,transactionResponse.getMessage());
+//                }
+//
+//                @Override
+//                public void error(CitrusError error) {
+//                    Log.d(TAG,error.toString());
+//                }
+//            });
+//        }catch (Exception e){
+//            Log.d(TAG,e.getMessage());
+//        }
 
 
         //SendMoney

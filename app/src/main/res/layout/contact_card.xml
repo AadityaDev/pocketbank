@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="66dp"
+    android:background="@color/white"
+    app:cardUseCompatPadding="true"
+    app:elevation="0dp"
+    card_view:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:id="@+id/top_card"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/white_rectangular_button">
+
+        <TextView
+            android:id="@+id/referrer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_toEndOf="@+id/referral_image"
+            android:layout_toLeftOf="@+id/refer_contact"
+            android:layout_toRightOf="@+id/referral_image"
+            android:layout_toStartOf="@+id/refer_contact"
+            android:ellipsize="end"
+            android:maxEms="11"
+            android:maxLines="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black"
+            android:textSize="@dimen/dimen_16sp" />
+
+        <TextView
+            android:id="@+id/connection_contact_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/referral_image"
+            android:layout_alignLeft="@+id/referrer_name"
+            android:layout_alignStart="@+id/referrer_name"
+            android:layout_gravity="center_horizontal"
+            android:layout_toLeftOf="@+id/refer_contact"
+            android:layout_toStartOf="@+id/refer_contact"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/email_or_number"
+            android:textSize="@dimen/dimen_14sp" />
+
+        <com.technawabs.pocketbank.ui.customViews.RoundedImageView
+            android:id="@+id/referral_image"
+            android:layout_width="@dimen/dimen_38dp"
+            android:layout_height="@dimen/dimen_38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/images" />
+
+        <TextView
+            android:id="@+id/referral_image_text"
+            android:layout_width="@dimen/dimen_38dp"
+            android:layout_height="@dimen/dimen_38dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dimen_8dp"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:maxLines="1"
+            android:scaleType="centerCrop"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimen_16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/refer_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_8dp"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:background="@drawable/contact_refer_button"
+            android:text="@string/send_money"
+            android:textSize="@dimen/dimen_16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/blank_space"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/top_card"
+        android:background="@color/refer_gray" />
+
+</RelativeLayout>
