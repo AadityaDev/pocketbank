@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PocketBank</string>
+    <string name="sign_up_text">Sign Up</string>
+    <string name="email_hint_text">Enter email</string>
+    <string name="email_text">Email</string>
+    <string name="mobile_hint_text">Enter mobile number</string>
+    <string name="mobile_text">Mobile Number</string>
+    <string name="error_dialog_text">Error Occurred!</string>
+</resources>

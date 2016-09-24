@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_16dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/ok_section"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_50dp"
+        android:layout_below="@+id/error_message"
+        >
+
+        <TextView
+            android:id="@+id/line_space"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_2dp"
+            android:background="@color/light_green"
+            />
+
+        <TextView
+            android:id="@+id/click_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:gravity="center"
+            android:textSize="@dimen/dimen_16sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/line_space"
+            android:layout_margin="@dimen/dimen_14dp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
