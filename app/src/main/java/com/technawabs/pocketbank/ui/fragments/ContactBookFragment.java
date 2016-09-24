@@ -1,14 +1,24 @@
 package com.technawabs.pocketbank.ui.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.technawabs.pocketbank.R;
+import com.technawabs.pocketbank.Utility;
+import com.technawabs.pocketbank.models.ConnectionDto;
+import com.technawabs.pocketbank.ui.adapter.ContactUserAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactBookFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -19,6 +29,13 @@ public class ContactBookFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private final String TAG=this.getClass().getSimpleName();
+    private ProgressDialog progressDialog;
+    private List<ConnectionDto> connectionDtos;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private ContactUserAdapter contactUserAdapter;
 
     public ContactBookFragment() {
         // Required empty public constructor
@@ -55,7 +72,18 @@ public class ContactBookFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_book, container, false);
+        View view= inflater.inflate(R.layout.fragment_contact_book, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.contact_list);
+        progressDialog=ProgressDialog.show(getContext(),"","Loading...",true);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        connectionDtos=new ArrayList<>();
+        contactUserAdapter=new ContactUserAdapter(connectionDtos,getContext());
+        Utility.readContacts(getActivity(),TAG,progressDialog,connectionDtos,contactUserAdapter);
+        recyclerView.setAdapter(contactUserAdapter);
+        return view;
     }
 
 }

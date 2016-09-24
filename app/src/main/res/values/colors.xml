@@ -9,5 +9,15 @@
     <color name="email_or_number">#757575</color>
     <color name="red_color">#F05151</color>
     <color name="refer_gray">#D1D1D1</color>
+    <color name="circle1">#673AB7</color>
+    <color name="circle2">#3F51B5</color>
+    <color name="circle3">#2196F3</color>
+    <color name="circle4">#009688</color>
+    <color name="circle5">#4CAF50</color>
+    <color name="circle6">#FFC107</color>
+    <color name="circle7">#673AB7</color>
+    <color name="circle8">#795548</color>
+    <color name="circle9">#9E9E9E</color>
+    <color name="circle10">#607D8B</color>
 </resources>
 

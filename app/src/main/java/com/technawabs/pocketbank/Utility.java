@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.citrus.sdk.Callback;
@@ -24,6 +25,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.technawabs.pocketbank.activities.OTPActivity;
 import com.technawabs.pocketbank.models.ConnectionDto;
+import com.technawabs.pocketbank.ui.adapter.ContactUserAdapter;
 import com.technawabs.pocketbank.ui.dialog.ErrorDialog;
 
 import java.text.SimpleDateFormat;
@@ -96,8 +98,9 @@ public class Utility {
     }
 
 
-    public static List<ConnectionDto> readContacts(@NonNull Activity context,@NonNull String TAG) {
-        List<ConnectionDto> phoneContactList = new ArrayList<>();
+    public static List<ConnectionDto> readContacts(@NonNull Activity context, @NonNull String TAG, @NonNull ProgressDialog progressDialog,
+                                                   @NonNull List<ConnectionDto> phoneContactList, @NonNull ContactUserAdapter contactUserAdapter) {
+//        List<ConnectionDto> phoneContactList = new ArrayList<>();
         ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.READ_CONTACTS}, 0);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             ContentResolver cr = context.getContentResolver();
@@ -122,7 +125,7 @@ public class Utility {
                             pCur.close();
                             ConnectionDto candidateDto = new ConnectionDto();       // creating an instance for contactmodel
                             candidateDto.setName(name);
-                            candidateDto.setMobileNo(getValidMobileNumber(phone));
+                            candidateDto.setMobileNo(phone);
                             // get email and type
                             Cursor emailCur = cr.query(
                                     ContactsContract.CommonDataKinds.Email.CONTENT_URI,
@@ -138,7 +141,7 @@ public class Utility {
                                         emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE));
                                 candidateDto.setEmail(email);
                             }
-                            if (!phoneContactList.contains(candidateDto.getMobileNo())) {
+                            if(!TextUtils.isEmpty(candidateDto.getMobileNo())){
                                 phoneContactList.add(candidateDto);
                             }
                             emailCur.close();
@@ -146,11 +149,38 @@ public class Utility {
                     }
                 }
                 cur.close();
+                contactUserAdapter.notifyDataSetChanged();
+                Utility.hideProgressDialog(progressDialog);
             } catch (Exception ex) {
                 Log.d(TAG, "Easting up the contacts sync exception as its running in background... ");
+                Utility.hideProgressDialog(progressDialog);
             }
         }
         return phoneContactList;
+    }
+
+    public static int getCircleBackgroundColor(@NonNull int position) {
+        if (position % 10 == 0) {
+            return R.color.circle10;
+        } else if (position % 9 == 0) {
+            return R.color.circle9;
+        } else if (position % 8 == 0) {
+            return R.color.circle8;
+        } else if (position % 7 == 0) {
+            return R.color.circle7;
+        } else if (position % 6 == 0) {
+            return R.color.circle6;
+        } else if (position % 5 == 0) {
+            return R.color.circle5;
+        } else if (position % 4 == 0) {
+            return R.color.circle4;
+        } else if (position % 3 == 0) {
+            return R.color.circle3;
+        } else if (position % 2 == 0) {
+            return R.color.circle2;
+        } else {
+            return R.color.circle1;
+        }
     }
 
 }
