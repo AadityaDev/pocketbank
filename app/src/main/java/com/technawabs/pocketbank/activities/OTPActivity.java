@@ -6,21 +6,16 @@ import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 
 import com.citrus.sdk.Callback;
-import com.citrus.sdk.TransactionResponse;
 import com.citrus.sdk.classes.Amount;
-import com.citrus.sdk.classes.Month;
-import com.citrus.sdk.classes.Year;
-import com.citrus.sdk.payment.DebitCardOption;
 import com.citrus.sdk.payment.MerchantPaymentOption;
 import com.citrus.sdk.payment.NetbankingOption;
-import com.citrus.sdk.payment.PaymentType;
 import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.PaymentResponse;
 import com.technawabs.pocketbank.R;
 import com.technawabs.pocketbank.ui.dialog.ErrorDialog;
 import com.technawabs.pocketbank.ui.fragments.ContactBookFragment;
 import com.technawabs.pocketbank.ui.fragments.GoogleContactFragment;
-import com.technawabs.pocketbank.ui.fragments.TwiiterContactFragment;
+import com.technawabs.pocketbank.ui.fragments.TwitterContactFragment;
 
 import java.util.ArrayList;
 
@@ -39,7 +34,7 @@ public class OTPActivity extends BaseActivity {
         fragmentTabHost=(FragmentTabHost)findViewById(R.id.tabhost);
         fragmentTabHost.setup(OTPActivity.this,getSupportFragmentManager(),R.id.realtabcontent);
         fragmentTabHost.addTab(fragmentTabHost.newTabSpec(Titles[0].toString()).setIndicator(Titles[0]),ContactBookFragment.class,null);
-        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(Titles[1].toString()).setIndicator(Titles[1]),TwiiterContactFragment.class,null);
+        fragmentTabHost.addTab(fragmentTabHost.newTabSpec(Titles[1].toString()).setIndicator(Titles[1]),TwitterContactFragment.class,null);
         fragmentTabHost.addTab(fragmentTabHost.newTabSpec(Titles[2].toString()).setIndicator(Titles[2]),GoogleContactFragment.class,null);
 
         getCitrusClient().isUserSignedIn(new Callback<Boolean>() {

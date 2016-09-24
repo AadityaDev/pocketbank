@@ -2,12 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.technawabs.pocketbank.ui.fragments.TwiiterContactFragment">
+    tools:context="com.technawabs.pocketbank.ui.fragments.TwitterContactFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/contact_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"/>
+
+    <com.twitter.sdk.android.core.identity.TwitterLoginButton
+        android:id="@+id/twitter_login"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
 
 </FrameLayout>
