@@ -80,7 +80,7 @@ public class ContactBookFragment extends Fragment {
         linearLayoutManager.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         connectionDtos=new ArrayList<>();
-        contactUserAdapter=new ContactUserAdapter(connectionDtos,getContext());
+//        contactUserAdapter=new ContactUserAdapter(connectionDtos,getContext());
         Utility.readContacts(getActivity(),TAG,progressDialog,connectionDtos,contactUserAdapter);
         recyclerView.setAdapter(contactUserAdapter);
         return view;

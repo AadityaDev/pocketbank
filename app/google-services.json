@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "84865714497",
+    "firebase_url": "https://fir-pocketbank.firebaseio.com",
+    "project_id": "firebase-pocketbank",
+    "storage_bucket": "firebase-pocketbank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84865714497:android:22a5d25a41407aa4",
+        "android_client_info": {
+          "package_name": "com.technawabs.pocketbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84865714497-2m9demr44hmnk6s10p241ck0jq2dpofj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technawabs.pocketbank",
+            "certificate_hash": "67AB88E063DC4C2C0A9C8C2B13B0AF5F23D86993"
+          }
+        },
+        {
+          "client_id": "84865714497-8ujpmi211railfago4rhl7cmrlh8tkgb.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "84865714497-lnbarlna5q0s0po8c589ejuh7r4k3oe2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfTtb4DbE1PgITKJFoCisp81M52licN9E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-75041527-9"
+          }
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84865714497-8ujpmi211railfago4rhl7cmrlh8tkgb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

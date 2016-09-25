@@ -1,7 +1,9 @@
 package com.technawabs.pocketbank.ui.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,22 +15,35 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.citrus.sdk.CitrusClient;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.technawabs.pocketbank.R;
 import com.technawabs.pocketbank.Utility;
 import com.technawabs.pocketbank.models.ConnectionDto;
+import com.technawabs.pocketbank.ui.cloudchip.ChipCloud;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.ContactsViewHolder> {
-    private Context context;
-    private List<ConnectionDto> contactsUserList;
 
-    public ContactUserAdapter(List<ConnectionDto> contactsUserList, Context context) {
+    private Context context;
+    private CitrusClient citrusClient;
+    private List<ConnectionDto> contactsUserList;
+    private ChipCloud chipCloud;
+    private String TAG;
+    private boolean isRupeesSelected;
+
+    public ContactUserAdapter(@NonNull List<ConnectionDto> contactsUserList,@NonNull Context context,
+                              @NonNull CitrusClient citrusClient,@NonNull ChipCloud chipCloud,@NonNull String TAG,
+                              @NonNull boolean isRupeesSelected) {
         this.contactsUserList = contactsUserList;
         this.context = context;
+        this.citrusClient=citrusClient;
+        this.chipCloud=chipCloud;
+        this.TAG=TAG;
+        this.isRupeesSelected=isRupeesSelected;
     }
 
     @Override
@@ -90,6 +105,9 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
             holder.comRefer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    ProgressDialog progressDialog=ProgressDialog.show(context, "", "Loading...", true);
+                    Utility.showProgressDialog(progressDialog);
+                    Utility.sendMoneyToContact(citrusClient,context,contactsUser,chipCloud,TAG,isRupeesSelected,progressDialog);
                 }
             });
         }
@@ -100,8 +118,10 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
         return contactsUserList.size();
     }
 
-    public ConnectionDto getCandidateProfile(int position) {
-        return contactsUserList.get(position);
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
     }
 
     class ContactsViewHolder extends RecyclerView.ViewHolder {

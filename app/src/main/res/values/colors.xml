@@ -6,6 +6,7 @@
     <color name="white">#FFFFFF</color>
     <color name="light_green">#72d3b4</color>
     <color name="black">#000000</color>
+    <color name="dark_gray">#333</color>
     <color name="email_or_number">#757575</color>
     <color name="red_color">#F05151</color>
     <color name="refer_gray">#D1D1D1</color>
@@ -19,5 +20,18 @@
     <color name="circle8">#795548</color>
     <color name="circle9">#9E9E9E</color>
     <color name="circle10">#607D8B</color>
+
+    <color name="paper">#fafafa</color>
+    <color name="blue">#4a90e2</color>
+    <color name="mediumBlue">#3978c1</color>
+    <color name="color_error">#FFCB0017</color>
+    <color name="base10">#eaeaea</color>
+    <color name="base30">#c1c1c1</color>
+
+    <color name="chip">#333</color>
+    <color name="dark_grey">#333333</color>
+    <color name="light_grey">#bbbbbb</color>
+
+
 </resources>
 

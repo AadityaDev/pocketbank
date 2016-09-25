@@ -13,25 +13,28 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.citrus.sdk.Callback;
 import com.citrus.sdk.CitrusClient;
+import com.citrus.sdk.classes.Amount;
 import com.citrus.sdk.classes.LinkUserExtendedResponse;
 import com.citrus.sdk.classes.LinkUserPasswordType;
 import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.CitrusResponse;
+import com.citrus.sdk.response.PaymentResponse;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.technawabs.pocketbank.activities.OTPActivity;
 import com.technawabs.pocketbank.models.ConnectionDto;
 import com.technawabs.pocketbank.ui.adapter.ContactUserAdapter;
+import com.technawabs.pocketbank.ui.cloudchip.ChipCloud;
 import com.technawabs.pocketbank.ui.dialog.ErrorDialog;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+
+import static com.technawabs.pocketbank.constants.PocketBankConstants.rupees;
 
 public class Utility {
 
@@ -67,7 +70,7 @@ public class Utility {
             public void success(CitrusResponse citrusResponse) {
                 try {
                     Log.d(tag, citrusResponse.getMessage());
-                    Intent intent=new Intent(context, OTPActivity.class);
+                    Intent intent = new Intent(context, OTPActivity.class);
                     context.startActivity(intent);
                 } catch (Exception e) {
                     errorDialog.show();
@@ -141,7 +144,7 @@ public class Utility {
                                         emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE));
                                 candidateDto.setEmail(email);
                             }
-                            if(!TextUtils.isEmpty(candidateDto.getMobileNo())){
+                            if (!TextUtils.isEmpty(candidateDto.getMobileNo())) {
                                 phoneContactList.add(candidateDto);
                             }
                             emailCur.close();
@@ -183,4 +186,58 @@ public class Utility {
         }
     }
 
+    public static void sendMoneyToContact(@NonNull CitrusClient citrusClient, @NonNull Context context, @NonNull ConnectionDto connectionDto,
+                                          @NonNull ChipCloud chipCloud, @NonNull String TAG,
+                                          @NonNull boolean isRupeesSelected,
+                                          @NonNull ProgressDialog progressDialog) {
+        String money = " ", message = " ";
+        for (int i = 0; i < rupees.length; i++) {
+            if (chipCloud.isSelected(i)) {
+                isRupeesSelected = true;
+                money = rupees[i];
+                Log.d(TAG, chipCloud.isSelected(i) + "");
+            }
+        }
+        if (isRupeesSelected) {
+            if (!TextUtils.isEmpty(connectionDto.getMobileNo())) {
+                if (connectionDto != null) {
+                    if (!TextUtils.isEmpty(connectionDto.getName())) {
+                        message = money + " sent to " + connectionDto.getName();
+
+                    } else {
+                        message = money + " sent to " + connectionDto.getMobileNo();
+                    }
+                }
+                sendMoney(context, TAG, citrusClient, money, connectionDto.getMobileNo(), message,progressDialog);
+            } else {
+                hideProgressDialog(progressDialog);
+                Toast.makeText(context, "Number not found", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            hideProgressDialog(progressDialog);
+            Toast.makeText(context, "Select money amount to be sent", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private static void sendMoney(@NonNull final Context context, @NonNull final String TAG, @NonNull CitrusClient citrusClient,
+                                  @NonNull final String amount, @NonNull String mobileNumber, @NonNull String messsage,
+                                  @NonNull final ProgressDialog progressDialog) {
+        //SendMoney
+        citrusClient.sendMoneyToMoblieNo(new Amount(amount.replace("Rs.","").replace(" ","")), mobileNumber, messsage, new Callback<PaymentResponse>() {
+            @Override
+            public void success(PaymentResponse paymentResponse) {
+                Log.d(TAG, paymentResponse.toString());
+                hideProgressDialog(progressDialog);
+                Toast.makeText(context, amount + " is successfully sent! ", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void error(CitrusError error) {
+                Log.d(TAG, error.toString());
+                hideProgressDialog(progressDialog);
+                if(error)
+                Toast.makeText(context, amount + " is not sent! ", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

@@ -73,13 +73,13 @@ public class TwitterContactFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_twiiter_contact, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.contact_list);
         twitterLoginButton=(TwitterLoginButton)view.findViewById(R.id.twitter_login);
-        progressDialog=ProgressDialog.show(getContext(),"","Loading...",true);
+//        progressDialog=ProgressDialog.show(getContext(),"","Loading...",true);
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         linearLayoutManager.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         connectionDtos=new ArrayList<>();
-        contactUserAdapter=new ContactUserAdapter(connectionDtos,getContext());
+//        contactUserAdapter=new ContactUserAdapter(connectionDtos,getContext());
         recyclerView.setAdapter(contactUserAdapter);
         return view;
     }

@@ -4,9 +4,21 @@
     android:layout_height="match_parent"
     tools:context="com.technawabs.pocketbank.ui.fragments.GoogleContactFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/contact_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/contact_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
 </FrameLayout>

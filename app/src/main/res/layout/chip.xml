@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.technawabs.pocketbank.ui.cloudchip.Chip
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dimen_60dp"
+    android:textSize="13sp"
+    android:textColor="@color/chip"
+    android:minWidth="@dimen/dimen_50dp"
+    android:gravity="center"
+    android:paddingLeft="@dimen/dimen_12dp"
+    android:paddingRight="@dimen/dimen_12dp"
+    android:background="@drawable/chip"/>

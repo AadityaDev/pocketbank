@@ -6,25 +6,47 @@
     android:layout_height="match_parent"
     tools:context="com.technawabs.pocketbank.activities.OTPActivity">
 
-    <android.support.v4.app.FragmentTabHost
-        android:id="@+id/tabhost"
+    <!--<android.support.v4.app.FragmentTabHost-->
+        <!--android:id="@+id/tabhost"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<FrameLayout-->
+                <!--android:id="@+id/realtabcontent"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_marginTop="@dimen/dimen_50dp"-->
+                <!--/>-->
+
+        <!--</LinearLayout>-->
+    <!--</android.support.v4.app.FragmentTabHost>-->
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/app_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?actionBarSize"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <com.technawabs.pocketbank.ui.cloudchip.ChipCloud
+        android:id="@+id/money_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/action_bar"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:numColumns="auto_fit"
+        />
 
-            <FrameLayout
-                android:id="@+id/realtabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/dimen_50dp"
-                />
-
-        </LinearLayout>
-    </android.support.v4.app.FragmentTabHost>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/contact_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/money_selector"
+        />
 
 </RelativeLayout>

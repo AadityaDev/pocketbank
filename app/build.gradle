@@ -46,6 +46,8 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:2.0.1@aar') {
         transitive = true;
     }
+    compile 'com.google.android.gms:play-services-auth:9.2.1'
+    compile 'com.google.android.gms:play-services-plus:9.2.1'
     compile 'com.googlecode.libphonenumber:libphonenumber:7.4.3'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
