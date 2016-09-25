@@ -9,7 +9,10 @@ import android.util.Log;
 import com.citrus.sdk.CitrusClient;
 import com.citrus.sdk.Environment;
 import com.citrus.sdk.response.CitrusError;
+import com.crashlytics.android.Crashlytics;
 import com.technawabs.pocketbank.Factory;
+
+import io.fabric.sdk.android.Fabric;
 
 public abstract class BaseActivity extends FragmentActivity{
 
@@ -22,6 +25,7 @@ public abstract class BaseActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         context=getApplicationContext();
         Factory.setUpThreadPolicy();
+        Fabric.with(context, new Crashlytics());
 
         //Setup citrus client
         citrusClient = CitrusClient.getInstance(getApplicationContext());

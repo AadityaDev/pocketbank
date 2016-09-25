@@ -21,7 +21,6 @@
         android:maxLines="1"
         android:textSize="@dimen/dimen_16_sp"
         android:layout_below="@+id/action_bar"
-        android:layout_marginTop="@dimen/dimen_48dp"
         android:layout_margin="@dimen/dimen_16dp"
         />
 

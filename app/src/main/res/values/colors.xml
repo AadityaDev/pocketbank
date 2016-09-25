@@ -31,7 +31,9 @@
     <color name="chip">#333</color>
     <color name="dark_grey">#333333</color>
     <color name="light_grey">#bbbbbb</color>
+    <color name="yellow_button">#FFBF1A</color>
 
+    <color name="button_green">#0CC474</color>
 
 </resources>
 

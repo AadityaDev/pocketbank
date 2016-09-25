@@ -92,9 +92,11 @@ public class MainActivity extends BaseActivity {
                             try {
                                 String errorMessasge = error.getMessage();
                                 Log.d(TAG, errorMessasge);
+                                Utility.hideProgressDialog(progressDialog);
                                 errorDialog = new ErrorDialog(MainActivity.this, errorMessasge);
                                 errorDialog.show();
                             } catch (Exception e) {
+                                Utility.hideProgressDialog(progressDialog);
                                 errorDialog = new ErrorDialog(MainActivity.this, getResources().getString(R.string.error_dialog_text));
                                 errorDialog.show();
                             }

@@ -3,6 +3,7 @@
     package="com.technawabs.pocketbank">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -24,15 +25,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.OTPActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="19d1daf8ee9025f9bf9103284f5c01b0f2e649e8" />
+
+        <activity android:name=".activities.UserAccountActivity"></activity>
     </application>
 
 </manifest>

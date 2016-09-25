@@ -161,6 +161,8 @@ public class Utility {
             } catch (Exception ex) {
                 Log.d(TAG, "Easting up the contacts sync exception as its running in background... ");
                 Utility.hideProgressDialog(progressDialog);
+            }finally {
+                hideProgressDialog(progressDialog);
             }
         }
         return phoneContactList;

@@ -49,4 +49,14 @@
         android:layout_below="@+id/money_selector"
         />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_money"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_height="@dimen/dimen_48dp"
+        android:src="@drawable/ic_check"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>

@@ -1,13 +1,17 @@
 package com.technawabs.pocketbank.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.citrus.sdk.Callback;
@@ -44,6 +48,7 @@ public class OTPActivity extends BaseActivity {
     private boolean isRupeesSelected;
     private String message;
     private String money;
+    private FloatingActionButton addMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +93,17 @@ public class OTPActivity extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         connectionDtos = new ArrayList<>();
         contactUserAdapter = new ContactUserAdapter(connectionDtos, this, getCitrusClient(), chipCloud, TAG, isRupeesSelected);
-        Utility.readContacts(this, TAG, progressDialog, connectionDtos, contactUserAdapter);
+        Utility.readContacts(OTPActivity.this, TAG, progressDialog, connectionDtos, contactUserAdapter);
         recyclerView.setAdapter(contactUserAdapter);
+
+        addMoney=(FloatingActionButton)findViewById(R.id.add_money);
+        addMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(OTPActivity.this,UserAccountActivity.class);
+                startActivity(intent);
+            }
+        });
 //        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
 //            @Override
 //            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
