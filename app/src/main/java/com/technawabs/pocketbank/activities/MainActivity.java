@@ -1,5 +1,6 @@
 package com.technawabs.pocketbank.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.citrus.sdk.classes.LinkUserSignInType;
 import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.CitrusResponse;
 import com.technawabs.pocketbank.R;
+import com.technawabs.pocketbank.Utility;
 import com.technawabs.pocketbank.ui.dialog.ErrorDialog;
 import com.technawabs.pocketbank.ui.dialog.OTPDialog;
 
@@ -24,10 +26,10 @@ public class MainActivity extends BaseActivity {
 
     private final String TAG = this.getClass().getSimpleName();
     private ErrorDialog errorDialog;
-    private CitrusClient citrusClient;
     private Button signUp;
     private EditText userEmail;
     private EditText userMobile;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,6 @@ public class MainActivity extends BaseActivity {
         signUp = (Button) findViewById(R.id.sign_up);
         userEmail = (EditText) findViewById(R.id.user_email);
         userMobile = (EditText) findViewById(R.id.user_mobile);
-
         //Setup citrus client
 //        citrusClient = CitrusClient.getInstance(getApplicationContext());
 //        citrusClient.enableLog(true);
@@ -62,6 +63,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(userEmail.getText().toString()) && !TextUtils.isEmpty(userMobile.getText().toString())) {
+                    progressDialog = ProgressDialog.show(MainActivity.this, "", "Loading...", true);
                     getCitrusClient().linkUserExtended(userEmail.getText().toString(), userMobile.getText().toString(), new Callback<LinkUserExtendedResponse>() {
                         @Override
                         public void success(LinkUserExtendedResponse linkUserExtendedResponse) {
@@ -70,12 +72,14 @@ public class MainActivity extends BaseActivity {
                             //UserSignIn type
                             LinkUserSignInType linkUserSignInType = linkUserExtendedResponse.getLinkUserSignInType();
                             if (linkUserSignInType.toString().equals("None ")) {
+                                Utility.hideProgressDialog(progressDialog);
                                 Log.d(TAG, "Error occurred");
                             } else {
                                 authenticationType(linkUserSignInType);
                                 String linkUserMessage = linkUserExtendedResponse.getLinkUserMessage();
                                 Log.d(TAG, linkUserMessage);
                                 ErrorDialog errorDialog=new ErrorDialog(MainActivity.this,"Error Occurreed");
+                                Utility.hideProgressDialog(progressDialog);
                                 OTPDialog otpDialog=new OTPDialog(MainActivity.this,getCitrusClient(),TAG,errorDialog,
                                         linkUserExtendedResponse,LinkUserPasswordType.Otp);
                                 otpDialog.show();
@@ -139,7 +143,7 @@ public class MainActivity extends BaseActivity {
 
     public void citrusLogIn(@NonNull LinkUserExtendedResponse linkUserExtendedResponse, @NonNull LinkUserPasswordType linkUserPasswordType,
                             @NonNull String linkUserPassword) {
-        citrusClient.linkUserExtendedSignIn(linkUserExtendedResponse, linkUserPasswordType, linkUserPassword, new Callback<CitrusResponse>() {
+        getCitrusClient().linkUserExtendedSignIn(linkUserExtendedResponse, linkUserPasswordType, linkUserPassword, new Callback<CitrusResponse>() {
             @Override
             public void success(CitrusResponse citrusResponse) {
                 try {
@@ -167,7 +171,7 @@ public class MainActivity extends BaseActivity {
 
     public void citrusLogInWithOTP(@NonNull String emailId, @NonNull LinkUserExtendedResponse linkUserExtendedResponse, @NonNull LinkUserPasswordType linkUserPasswordType,
                                    @NonNull String linkUserPassword) {
-        citrusClient.linkUserExtendedSignIn(linkUserExtendedResponse, linkUserPasswordType, linkUserPassword, new Callback<CitrusResponse>() {
+        getCitrusClient().linkUserExtendedSignIn(linkUserExtendedResponse, linkUserPasswordType, linkUserPassword, new Callback<CitrusResponse>() {
             @Override
             public void success(CitrusResponse citrusResponse) {
                 Log.d(TAG, citrusResponse.getMessage());

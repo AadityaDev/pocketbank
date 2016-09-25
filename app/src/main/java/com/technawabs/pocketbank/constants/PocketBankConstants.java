@@ -12,7 +12,7 @@ public class PocketBankConstants {
     public static final String REQUEST_TIMED_OUT = "Request timed out. Please try again later.";
     public static final String COULDNT_REACH_OUR_SERVERS = "Couldn't reach our servers. Please try again later.";
     public static final String rupees[] = new String[]{" Rs. 5 ", " Rs. 10 ", " Rs. 20 ", " Rs. 50 ", " Rs. 100 ", " Rs. 200 ", " Rs. 500 ", " Rs. 1000 "};
-
+    public static final int MOBILE_NUMBER_LENGTH = 10;
 
     public static class NotificationConstant {
         //generic constants

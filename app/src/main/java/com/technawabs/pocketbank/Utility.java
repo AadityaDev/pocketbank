@@ -27,6 +27,7 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.technawabs.pocketbank.activities.OTPActivity;
+import com.technawabs.pocketbank.constants.PocketBankConstants;
 import com.technawabs.pocketbank.models.ConnectionDto;
 import com.technawabs.pocketbank.ui.adapter.ContactUserAdapter;
 import com.technawabs.pocketbank.ui.cloudchip.ChipCloud;
@@ -64,15 +65,18 @@ public class Utility {
                                    @NonNull final ErrorDialog errorDialog,
                                    @NonNull LinkUserExtendedResponse linkUserExtendedResponse,
                                    @NonNull LinkUserPasswordType linkUserPasswordType,
-                                   @NonNull String linkUserPassword) {
+                                   @NonNull String linkUserPassword,@NonNull final ProgressDialog progressDialog) {
         citrusClient.linkUserExtendedSignIn(linkUserExtendedResponse, linkUserPasswordType, linkUserPassword, new Callback<CitrusResponse>() {
             @Override
             public void success(CitrusResponse citrusResponse) {
                 try {
                     Log.d(tag, citrusResponse.getMessage());
+                    Utility.hideProgressDialog(progressDialog);
                     Intent intent = new Intent(context, OTPActivity.class);
                     context.startActivity(intent);
+                    ((Activity)context).finish();
                 } catch (Exception e) {
+                    Utility.hideProgressDialog(progressDialog);
                     errorDialog.show();
                 }
             }
@@ -144,7 +148,7 @@ public class Utility {
                                         emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE));
                                 candidateDto.setEmail(email);
                             }
-                            if (!TextUtils.isEmpty(candidateDto.getMobileNo())) {
+                            if (!TextUtils.isEmpty(candidateDto.getMobileNo()) && candidateDto.getMobileNo().length() > PocketBankConstants.MOBILE_NUMBER_LENGTH) {
                                 phoneContactList.add(candidateDto);
                             }
                             emailCur.close();
@@ -196,6 +200,7 @@ public class Utility {
                 isRupeesSelected = true;
                 money = rupees[i];
                 Log.d(TAG, chipCloud.isSelected(i) + "");
+                break;
             }
         }
         if (isRupeesSelected) {
@@ -208,7 +213,7 @@ public class Utility {
                         message = money + " sent to " + connectionDto.getMobileNo();
                     }
                 }
-                sendMoney(context, TAG, citrusClient, money, connectionDto.getMobileNo(), message,progressDialog);
+                sendMoney(context, TAG, citrusClient, money, connectionDto.getMobileNo(), message, progressDialog);
             } else {
                 hideProgressDialog(progressDialog);
                 Toast.makeText(context, "Number not found", Toast.LENGTH_SHORT).show();
@@ -223,7 +228,7 @@ public class Utility {
                                   @NonNull final String amount, @NonNull String mobileNumber, @NonNull String messsage,
                                   @NonNull final ProgressDialog progressDialog) {
         //SendMoney
-        citrusClient.sendMoneyToMoblieNo(new Amount(amount.replace("Rs.","").replace(" ","")), mobileNumber, messsage, new Callback<PaymentResponse>() {
+        citrusClient.sendMoneyToMoblieNo(new Amount(amount.replace("Rs.", "").replace(" ", "")), mobileNumber, messsage, new Callback<PaymentResponse>() {
             @Override
             public void success(PaymentResponse paymentResponse) {
                 Log.d(TAG, paymentResponse.toString());
@@ -235,7 +240,6 @@ public class Utility {
             public void error(CitrusError error) {
                 Log.d(TAG, error.toString());
                 hideProgressDialog(progressDialog);
-                if(error)
                 Toast.makeText(context, amount + " is not sent! ", Toast.LENGTH_SHORT).show();
             }
         });

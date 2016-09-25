@@ -1,6 +1,7 @@
 package com.technawabs.pocketbank.ui.dialog;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.citrus.sdk.classes.LinkUserExtendedResponse;
 import com.citrus.sdk.classes.LinkUserPasswordType;
 import com.technawabs.pocketbank.R;
 import com.technawabs.pocketbank.Utility;
+import com.technawabs.pocketbank.activities.OTPActivity;
 
 public class OTPDialog extends Dialog {
 
@@ -29,6 +31,7 @@ public class OTPDialog extends Dialog {
     private ErrorDialog errorDialog;
     private LinkUserExtendedResponse linkUserExtendedResponse;
     private LinkUserPasswordType linkUserPasswordType;
+    private ProgressDialog progressDialog;
 
     public OTPDialog(@NonNull Context context, @NonNull CitrusClient citrusClient, @NonNull String tag,
                      @NonNull ErrorDialog errorDialog, @NonNull LinkUserExtendedResponse linkUserExtendedResponse,
@@ -56,9 +59,12 @@ public class OTPDialog extends Dialog {
         verifyOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog=ProgressDialog.show(context, "", "Loading...", true);
                 if (!TextUtils.isEmpty(editText.getText().toString())) {
+                    errorDialog = new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_text));
+                    progressDialog.show();
                     Utility.citrusLogIn(citrusClient, context, tag, errorDialog, linkUserExtendedResponse,
-                            linkUserPasswordType, editText.getText().toString());
+                            linkUserPasswordType, editText.getText().toString(),progressDialog);
                 }else {
                     Toast.makeText(context,"Enter OTP code",Toast.LENGTH_SHORT).show();
                 }

@@ -7,9 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.citrus.sdk.Callback;
@@ -21,7 +19,6 @@ import com.citrus.sdk.response.PaymentResponse;
 import com.technawabs.pocketbank.R;
 import com.technawabs.pocketbank.Utility;
 import com.technawabs.pocketbank.models.ConnectionDto;
-import com.technawabs.pocketbank.ui.ItemClickSupport;
 import com.technawabs.pocketbank.ui.adapter.ContactUserAdapter;
 import com.technawabs.pocketbank.ui.cloudchip.ChipCloud;
 import com.technawabs.pocketbank.ui.cloudchip.ChipListener;
@@ -74,13 +71,11 @@ public class OTPActivity extends BaseActivity {
                     @Override
                     public void chipSelected(int index) {
                         chipCloud.setSelected(true);
-                        isRupeesSelected=true;
                     }
 
                     @Override
                     public void chipDeselected(int index) {
                         chipCloud.setSelected(false);
-                        isRupeesSelected=false;
                     }
                 })
                 .build();
@@ -92,7 +87,7 @@ public class OTPActivity extends BaseActivity {
         linearLayoutManager.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         connectionDtos = new ArrayList<>();
-        contactUserAdapter = new ContactUserAdapter(connectionDtos, this,getCitrusClient(),chipCloud,TAG,isRupeesSelected);
+        contactUserAdapter = new ContactUserAdapter(connectionDtos, this, getCitrusClient(), chipCloud, TAG, isRupeesSelected);
         Utility.readContacts(this, TAG, progressDialog, connectionDtos, contactUserAdapter);
         recyclerView.setAdapter(contactUserAdapter);
 //        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -173,7 +168,7 @@ public class OTPActivity extends BaseActivity {
 //        DebitCardOption debitCardOption
 //                = new DebitCardOption("Card Holder Name", "4111111111111111", "123", Month.getMonth("12"), Year.getYear("18"));
 //
-//        Amount amount = new Amount("500");
+//        Amount amount = new Amount("5000");
 //
 //        // Init Load Money PaymentType
 //        final String LOAD_MONEY_RETURN_URL="https://sandbox.citruspay.com/rlvmxr9q74";
